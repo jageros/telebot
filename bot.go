@@ -50,6 +50,7 @@ func NewBot(pref Settings) (*Bot, error) {
 		verbose:     pref.Verbose,
 		parseMode:   pref.ParseMode,
 		client:      client,
+		isTest:      pref.IsTest,
 	}
 
 	if pref.Offline {
@@ -85,6 +86,8 @@ type Bot struct {
 
 	stopMu     sync.RWMutex
 	stopClient chan struct{}
+
+	isTest bool
 }
 
 // Settings represents a utility struct for passing certain
@@ -122,6 +125,8 @@ type Settings struct {
 
 	// Offline allows to create a bot without network for testing purposes.
 	Offline bool
+
+	IsTest bool
 }
 
 var defaultOnError = func(err error, c Context) {
